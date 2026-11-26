@@ -1,50 +1,62 @@
-# SYDE 411 Fire Station Optimization
+# SYDE 411 Toronto Fire Station Location Optimization
 
-Python implementation of binary NSGA-II for a smaller instance of Yao et al.’s fire-station location model.
+A SYDE 411 course project on the trade-off between opening fewer fire stations and keeping higher-risk areas closer to a station. The Python experiment uses binary NSGA-II to search for layouts in a 15 x 15 km study window in Toronto and an exact set-cover model to find the minimum station count for the same coverage rule.
 
-## Run
+**Key result.** The smallest layout found by NSGA-II used **8 stations** and placed all 210 demand-cell centres within **3.61 km** of a selected site. The exact benchmark established that **7 stations** are sufficient and necessary to meet the 4 km coverage requirement.
 
-Use Python 3.13 and run these commands from this repository:
+![Maps of estimated population, recorded fires, and risk with the eight selected station sites marked](figures/opening_heatmaps.png)
+
+## Run the experiment
+
+Use Python 3.13. The recorded runs used Python 3.13.9, and [requirements.txt](requirements.txt) pins the dependencies. Run these commands from the repository root:
 
 ```bash
-python -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python run_nsga2.py
-python make_figures.py
+
 python verify_results.py
+python run_nsga2.py
+python verify_results.py
+python make_figures.py
 ```
 
-On Windows, activate the environment with `.venv\Scripts\activate`.
+The first verification checks the committed layouts. Running the optimizer replaces the files in `results/`. The figure script writes three PNGs and `slide_data.json` in the project root.
 
-- `run_nsga2.py`: five seeded NSGA-II runs and an exact minimum-coverage benchmark.
-- `make_figures.py`: population, incident and station maps, convergence and tradeoff figures.
-- `verify_results.py`: independent checks of risk formulas, saved objectives and coverage.
-- `toronto_225_cells.csv`: frozen optimization inputs.
-- `results/`: recorded outputs, layouts, histories and experiment settings.
-- `source_snapshot/`: original public data, source metadata and spatial preprocessing code.
+## Model
 
-The frozen input CSV is sufficient to run the optimization; downloading the source data again is unnecessary. Running the scripts overwrites generated outputs, and measured runtimes vary by computer.
+The study window contains 225 one-square-kilometre cells. The centres of 210 included cells serve as both demand points and candidate sites for a hypothetical station layout. Each candidate site is represented by a binary open-or-closed decision.
 
-## Model and data
+A feasible layout places every demand-cell centre within **4 km of its nearest open station**, measured in a straight line. Among feasible layouts, NSGA-II minimizes two objectives:
 
-The study window has 225 one-square-kilometre cells; 210 cells are included as demand areas and candidate station centres. Population is estimated from 2021 Toronto neighbourhood profiles by area allocation. The incident counts are 5,007 published recorded fires during 2018–2023. Risk is six-year incidents per 1,000 estimated residents.
+1. **Station count.** Count the open sites.
+2. **Risk-weighted distance.** Multiply each demand cell’s distance to its nearest station by the cell’s risk weight, then sum across cells.
 
-The objectives minimize station count and risk-weighted nearest-station distance. All included cell centres must lie within 4 km of a station. The 4 km Euclidean threshold follows the reference paper and is not a Toronto operational standard. Roads, crews and capacity are not modeled.
+The risk weight is **1,000 × recorded fires ÷ estimated residents**, using six years of published fire records (2018–2023) and population estimates allocated by area from 2021 neighbourhood profiles. The study window contains 5,007 recorded fires. The coverage rule follows the reference study and applies to cell centres. The model omits road travel, staffing and station capacity.
 
-## Recorded results
+## Read the results
 
-Five seeds (411–415), population 120, 200 generations and 24,000 evaluations per run. The smallest NSGA-II layout found has eight stations; the exact set-cover benchmark proves seven suffice for coverage. The saved fronts are approximate, not proven globally Pareto-optimal. The mapped eight-station example covers all 210 demand-cell centres.
+Each of the five runs (seeds 411-415) used 120 individuals and 200 generations, for 24,000 evaluations per run. Seed 411 found the mapped eight-station layout. The other four runs reached nine stations. The archived pooled front contains 94 nondominated solutions found across the five runs and approximates the trade-off between the two objectives. A fresh run can produce a different pooled front even with the same seeds. The exact set-cover solve establishes the minimum station count for coverage alone.
 
-The preliminary greedy layout generated by `source_snapshot/reproduce.py` is separate from the NSGA-II result in `results/selected_layout_225_cells.csv`.
+| File | What it contains |
+| --- | --- |
+| [Experiment summary](results/experiment_summary.json) | Run settings, per-seed results, selected layout metrics and exact solver status |
+| [Pooled front](results/pooled_front.csv) | Station counts and risk-weighted distances for the 94 nondominated solutions |
+| [Selected layout](results/selected_layout_225_cells.csv) | All 225 input cells with flags identifying the eight mapped stations |
+| [Exact set-cover layout](results/exact_set_cover_layout.csv) | The seven sites selected by the minimum-coverage solve |
+| [Saved layouts](results/layouts.npz) | Binary station selections, cell IDs and objective values |
+| [Pareto plot](figures/pareto.png) and [convergence plot](figures/convergence.png) | The pooled trade-off and hypervolume by generation and seed |
 
-## Sources and attribution
+## Rebuild the input data
 
-- Yao, Zhang and Murray (2019), [Location optimization of urban fire stations: Access and service coverage](https://doi.org/10.1016/j.compenvurbsys.2018.10.006).
-- Deb et al. (2002), [A fast and elitist multiobjective genetic algorithm: NSGA-II](https://doi.org/10.1109/4235.996017).
-- [pymoo NSGA-II documentation](https://pymoo.org/algorithms/moo/nsga2.html).
-- City of Toronto Open Data: [Fire Incidents](https://open.toronto.ca/dataset/fire-incidents/), [Neighbourhood Profiles](https://open.toronto.ca/dataset/neighbourhood-profiles/), and [Neighbourhoods](https://open.toronto.ca/dataset/neighbourhoods/). Public data are subject to the [Open Government Licence – Toronto](https://open.toronto.ca/open-data-license/); publication by this project does not imply City endorsement.
+Run `python source_snapshot/reproduce.py` with the pinned dependencies to rebuild the grid from the archived source files. The script writes its CSV to `source_snapshot/toronto_225_cells.csv`. The optimizer reads the frozen copy at the repository root. The preprocessing script also generates a preliminary greedy layout for illustration. The eight-station NSGA-II layout is in [results/selected_layout_225_cells.csv](results/selected_layout_225_cells.csv).
 
-Authors: Annie Cai, Michelle Wang, Jacqueline Fung.
+Processing rules, assumptions and data fingerprints are recorded in the [source notes](source_snapshot/README.md) and [snapshot summary](source_snapshot/summary.json).
 
-AI assistance: OpenAI Codex supported research, data preparation, Python implementation, validation, figures and drafting. The authors remain responsible for reviewing the code, results and submitted work.
+## References
+
+- Yao, Zhang and Murray (2019). [Location optimization of urban fire stations: Access and service coverage](https://doi.org/10.1016/j.compenvurbsys.2018.10.006).
+- Deb et al. (2002). [A fast and elitist multiobjective genetic algorithm: NSGA-II](https://doi.org/10.1109/4235.996017). The experiment uses [pymoo’s implementation](https://pymoo.org/algorithms/moo/nsga2.html).
+- City of Toronto Open Data, published under the [Open Government Licence – Toronto](https://open.toronto.ca/open-data-license/). [Fire Incidents](https://open.toronto.ca/dataset/fire-incidents/), [Neighbourhood Profiles](https://open.toronto.ca/dataset/neighbourhood-profiles/), [Neighbourhoods](https://open.toronto.ca/dataset/neighbourhoods/), and [Fire Station Locations](https://open.toronto.ca/dataset/fire-station-locations/).
+
+**Authors** — Annie Cai, Michelle Wang, Jacqueline Fung.
