@@ -19,13 +19,15 @@ python verify_results.py
 python run_nsga2.py
 python verify_results.py
 python make_figures.py
+python audit_solution.py
+python verify_results.py
 ```
 
 The first verification checks the committed layouts. Running the optimizer replaces the files in `results/`. The figure script writes three PNGs and `slide_data.json` in the project root.
 
 ## Model
 
-The study window contains 225 one-square-kilometre cells. The centres of 210 included cells serve as both demand points and candidate sites for a hypothetical station layout. Each candidate site is represented by a binary open-or-closed decision.
+The study window contains 225 one-square-kilometre cells. The centres of 210 included cells serve as both demand points and candidate sites for a hypothetical station layout. The inclusion rule requires a positive population estimate and more than 0.001 km² of Toronto overlap. Fourteen cells fall outside Toronto, and one boundary cell overlaps by only 17 m² (0.12 estimated residents). Each candidate site is represented by a binary open-or-closed decision.
 
 A feasible layout places every demand-cell centre within **4 km of its nearest open station**, measured in a straight line. Among feasible layouts, NSGA-II minimizes two objectives:
 
@@ -37,6 +39,8 @@ The risk weight is **1,000 × recorded fires ÷ estimated residents**, using six
 ## Read the results
 
 Each of the five runs (seeds 411-415) used 120 individuals and 200 generations, for 24,000 evaluations per run. Seed 411 found the mapped eight-station layout. The other four runs reached nine stations. The archived pooled front contains 94 nondominated solutions found across the five runs and approximates the trade-off between the two objectives. A fresh run can produce a different pooled front even with the same seeds. The exact set-cover solve establishes the minimum station count for coverage alone.
+
+At eight stations, the selected layout scores 2463.44 in risk-weighted distance, 12.0% above the exact optimum of 2199.17. Of 1,616 single-station relocations, 49 improved the selected layout while preserving coverage. Eight successive best moves reached 2201.40, within 0.10% of the optimum, with no further improvement at a tolerance of 1e-8. [Solution audit](results/solution_audit.json)
 
 | File | What it contains |
 | --- | --- |

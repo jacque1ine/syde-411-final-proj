@@ -1,5 +1,6 @@
 """Independently check saved inputs, pooled layouts and the exact coverage layout."""
 
+import json
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -38,3 +39,18 @@ assert selected.sum() == 7 and (distance_km[:, selected].min(axis=1) <= 4 + 1e-9
 print(
     f'PASS: 225 cells, all risk formulas, {len(z["X"])} saved layouts and seven-station benchmark coverage verified.'
 )
+
+audit_path = project_dir / "results/solution_audit.json"
+if audit_path.exists():
+    report = json.loads(audit_path.read_text())
+    for filename, method, metric in [
+        ("local_search_layout.csv", "local_search", "final_distance"),
+        ("fixed_count_milp_layout.csv", "fixed_count_milp", "incumbent"),
+    ]:
+        layout = pd.read_csv(project_dir / "results" / filename)
+        assert np.array_equal(layout.cell_id, active_cells.cell_id)
+        selected = layout.station_selected.to_numpy()
+        nearest_km = distance_km[:, selected].min(axis=1)
+        assert selected.sum() == 8 and (nearest_km <= 4 + 1e-9).all()
+        assert np.isclose(risk_weights @ nearest_km, report[method][metric])
+    print("PASS: Both eight-station layouts match their saved audit objectives.")

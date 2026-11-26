@@ -1,0 +1,103 @@
+{
+  "local_search": {
+    "starting_stations": 8,
+    "starting_distance": 2463.4382626182705,
+    "first_neighborhood_tested": 1616,
+    "first_improving_neighbors": 49,
+    "moves": 8,
+    "final_distance": 2201.396592077967,
+    "relative_improvement_percent": 10.63723311100121,
+    "final_neighborhood_tested": 1616,
+    "final_improving_neighbors": 0,
+    "tolerance": 1e-08,
+    "seconds": 0.11692758300341666,
+    "history": [
+      {
+        "step": 1,
+        "distance": 2386.5559254204018,
+        "improving_neighbors_before_move": 49
+      },
+      {
+        "step": 2,
+        "distance": 2334.1505446213077,
+        "improving_neighbors_before_move": 40
+      },
+      {
+        "step": 3,
+        "distance": 2279.698917173426,
+        "improving_neighbors_before_move": 16
+      },
+      {
+        "step": 4,
+        "distance": 2259.4649800963302,
+        "improving_neighbors_before_move": 9
+      },
+      {
+        "step": 5,
+        "distance": 2223.383529184743,
+        "improving_neighbors_before_move": 9
+      },
+      {
+        "step": 6,
+        "distance": 2209.229421755732,
+        "improving_neighbors_before_move": 6
+      },
+      {
+        "step": 7,
+        "distance": 2201.9151464958436,
+        "improving_neighbors_before_move": 2
+      },
+      {
+        "step": 8,
+        "distance": 2201.396592077967,
+        "improving_neighbors_before_move": 1
+      }
+    ]
+  },
+  "fixed_count_milp": {
+    "station_ceiling": 8,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.23212412500288337,
+    "incumbent": 2199.1713786623463,
+    "lower_bound": 2199.1713786623463,
+    "relative_gap": 0.0
+  },
+  "late_progress": [
+    {
+      "seed": 411,
+      "hv_generation_100": 0.8365237253463205,
+      "hv_generation_200": 0.8549184214312484,
+      "gain_100_to_200": 0.01839469608492794,
+      "min_feasible_fraction_in_surviving_populations": 1.0
+    },
+    {
+      "seed": 412,
+      "hv_generation_100": 0.8330705991468087,
+      "hv_generation_200": 0.8510138529779243,
+      "gain_100_to_200": 0.017943253831115613,
+      "min_feasible_fraction_in_surviving_populations": 1.0
+    },
+    {
+      "seed": 413,
+      "hv_generation_100": 0.8315554820152267,
+      "hv_generation_200": 0.8472325778852953,
+      "gain_100_to_200": 0.015677095870068603,
+      "min_feasible_fraction_in_surviving_populations": 1.0
+    },
+    {
+      "seed": 414,
+      "hv_generation_100": 0.8176344374406377,
+      "hv_generation_200": 0.8475921627089847,
+      "gain_100_to_200": 0.029957725268347057,
+      "min_feasible_fraction_in_surviving_populations": 1.0
+    },
+    {
+      "seed": 415,
+      "hv_generation_100": 0.811648336394234,
+      "hv_generation_200": 0.8365105213899574,
+      "gain_100_to_200": 0.024862184995723458,
+      "min_feasible_fraction_in_surviving_populations": 1.0
+    }
+  ]
+}
