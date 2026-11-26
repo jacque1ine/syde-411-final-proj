@@ -14,3 +14,16 @@ for x,v in zip(z['X'],z['F']):
  d=D[:,x].min(axis=1);assert d.max()<=4+1e-9;assert np.allclose(v,[x.sum(),w@d])
 e=pd.read_csv(p/'results/exact_set_cover_layout.csv');assert np.array_equal(e.cell_id,a.cell_id);b=e.selected.to_numpy();assert b.sum()==7 and (D[:,b].min(axis=1)<=4+1e-9).all()
 print(f'PASS: 225 cells, all risk formulas, {len(z["X"])} saved layouts and seven-station benchmark coverage verified.')
+
+# Optional additional audit outputs do not replace the original NSGA-II front.
+audit=p/'results/solution_audit.json'
+if audit.exists():
+ import json
+ report=json.loads(audit.read_text())
+ for file,key in [('local_search_layout.csv','local_search'),('fixed_count_milp_layout.csv','fixed_count_milp')]:
+  q=pd.read_csv(p/'results'/file);assert np.array_equal(q.cell_id,a.cell_id)
+  z=q.station_selected.to_numpy();dd=D[:,z].min(axis=1)
+  assert z.sum()==8 and (dd<=4+1e-9).all()
+  expect=report[key]['final_distance'] if key=='local_search' else report[key]['incumbent']
+  assert np.isclose(w@dd,expect)
+ print('PASS: local-search and exact fixed-count layouts agree with saved audit objectives.')
