@@ -11,5 +11,3 @@ Use Python 3.13 for the recorded environment. The frozen Toronto CSV is the opti
 source_snapshot/ contains original data downloads, metadata, fingerprints and spatial preparation code. Its reproduce.py also produces a preliminary greedy station illustration; that is NOT the NSGA-II result used in the final report. The report uses results/selected_layout_225_cells.csv. Keep raw snapshots to reproduce the same instance.
 
 Main conclusion: eight stations were the best NSGA-II count in these runs; an exact minimum-set-cover solve proved seven sufficient. No exact risk-distance frontier was computed. Coverage applies to cell centres within 4 km Euclidean distance.
-
-AI assistance: OpenAI Codex supported research, data preparation, Python implementation, checking and writing. Group review and course approval remain the authors' responsibility.
