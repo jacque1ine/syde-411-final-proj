@@ -1,0 +1,6 @@
+{'seed': 411, 'seconds': 1.9986553330672905, 'evaluations': 24000, 'min_stations': 8, 'max_stations_on_front': 109, 'final_hypervolume': 0.8549184214312484, 'initial_hypervolume': 0.6905616457161698}
+{'seed': 412, 'seconds': 2.1466110419714823, 'evaluations': 24000, 'min_stations': 9, 'max_stations_on_front': 108, 'final_hypervolume': 0.8510138529779243, 'initial_hypervolume': 0.6862935253404041}
+{'seed': 413, 'seconds': 2.0288815420353785, 'evaluations': 24000, 'min_stations': 9, 'max_stations_on_front': 100, 'final_hypervolume': 0.8472325778852953, 'initial_hypervolume': 0.7027849636586225}
+{'seed': 414, 'seconds': 1.972656416008249, 'evaluations': 24000, 'min_stations': 9, 'max_stations_on_front': 107, 'final_hypervolume': 0.8475921627089847, 'initial_hypervolume': 0.6911318443001374}
+{'seed': 415, 'seconds': 1.9826028330717236, 'evaluations': 24000, 'min_stations': 9, 'max_stations_on_front': 89, 'final_hypervolume': 0.8365105213899574, 'initial_hypervolume': 0.6895032172547171}
+{"status": 0, "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)", "station_count": 7.000000000000009, "dual_bound": 7.000000000000009, "gap": 0.0, "seconds": 0.4081084170611575}

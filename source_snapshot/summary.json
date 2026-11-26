@@ -1,0 +1,34 @@
+{
+  "study_centre_lon_lat": [
+    -79.4,
+    43.75
+  ],
+  "southwest_epsg26917_m": [
+    621500,
+    4837500
+  ],
+  "population_proxy_sum": 966146.9386851364,
+  "recorded_fires_in_square": 5007,
+  "citywide_selected_fire_records_missing_coordinates": 1,
+  "citywide_selected_fire_records_invalid_coordinates": 1,
+  "active_cells": 210,
+  "published_stations_in_square": 28,
+  "published_stations_used_for_baseline_including_outside_square": 84,
+  "illustrative_stations": 10,
+  "illustrative_max_distance_km": 3.6055512754639896,
+  "illustrative_weighted_distance": 1971.5058732822818,
+  "heuristic_swap_iterations": 16,
+  "method": "Greedy cover + best one-for-one swaps; no optimality claim; not NSGA-II",
+  "period": "2018-2023 inclusive, 6 years; not annualized",
+  "population_variable": "Total - Age groups of the population - 25% sample data",
+  "raw_sha256": {
+    "fire-incidents_metadata.json": "059be38271afbfd23b5672d07fc5d926d34aa5344b4b2ecde2141cbed3998788",
+    "neighbourhoods.geojson": "b0cb58077f5b3a47e0e56a68913c6980cfaf39d37d7d020fd91b60650c480233",
+    "stations.geojson": "661cf5aba3383177c7a5d4301eb83e3c8c5c04a060c79488a76189888ac69dae",
+    "fire-station-locations_metadata.json": "75e0e9dee639769043cddc9fd9b9e1200f36ad36822171b88ff4d3172074342e",
+    "neighbourhoods_metadata.json": "b9add1858f79318832ed8fedec1e2c269df21214694f6d7a2c9ea10940a55982",
+    "neighbourhood-profiles_metadata.json": "5f54d3de14ca5fafdf65e6f7ba12f77b708f20f47cc29e94c15bc07321280bf3",
+    "population.xlsx": "9a3c372907e9de09407d847398703146a9cfc0f5b2217446fd61ab8ab35345eb",
+    "fires.csv": "084e12f817eada9228869a5dc7c0e96cbb45c3f8c17f54958c0bf49353aaf7a0"
+  }
+}

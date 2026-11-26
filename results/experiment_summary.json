@@ -1,0 +1,99 @@
+{
+  "runs": [
+    {
+      "seed": 411,
+      "seconds": 1.9986553330672905,
+      "evaluations": 24000,
+      "min_stations": 8,
+      "max_stations_on_front": 109,
+      "final_hypervolume": 0.8549184214312484,
+      "initial_hypervolume": 0.6905616457161698
+    },
+    {
+      "seed": 412,
+      "seconds": 2.1466110419714823,
+      "evaluations": 24000,
+      "min_stations": 9,
+      "max_stations_on_front": 108,
+      "final_hypervolume": 0.8510138529779243,
+      "initial_hypervolume": 0.6862935253404041
+    },
+    {
+      "seed": 413,
+      "seconds": 2.0288815420353785,
+      "evaluations": 24000,
+      "min_stations": 9,
+      "max_stations_on_front": 100,
+      "final_hypervolume": 0.8472325778852953,
+      "initial_hypervolume": 0.7027849636586225
+    },
+    {
+      "seed": 414,
+      "seconds": 1.972656416008249,
+      "evaluations": 24000,
+      "min_stations": 9,
+      "max_stations_on_front": 107,
+      "final_hypervolume": 0.8475921627089847,
+      "initial_hypervolume": 0.6911318443001374
+    },
+    {
+      "seed": 415,
+      "seconds": 1.9826028330717236,
+      "evaluations": 24000,
+      "min_stations": 9,
+      "max_stations_on_front": 89,
+      "final_hypervolume": 0.8365105213899574,
+      "initial_hypervolume": 0.6895032172547171
+    }
+  ],
+  "configuration": {
+    "population": 120,
+    "generations": 200,
+    "seeds": [
+      411,
+      412,
+      413,
+      414,
+      415
+    ],
+    "crossover": "two-point, probability 0.9",
+    "mutation": "bit flip, individual probability 1, bit probability 1/210",
+    "constraint": "uncovered cell count <= 0; feasibility-first",
+    "initialization": "random 0-34 sites, greedy randomized coverage completion",
+    "hypervolume": "F normalized by [210, 4*sum(w)+1], reference [1.01,1.01]"
+  },
+  "exact_set_cover": {
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "station_count": 7.000000000000009,
+    "dual_bound": 7.000000000000009,
+    "gap": 0.0,
+    "seconds": 0.4081084170611575
+  },
+  "selected": {
+    "stations": 8,
+    "risk_weighted_distance": 2463.4382626182705,
+    "max_distance_km": 3.6055512754639896,
+    "coverage_percent": 100,
+    "cell_ids": [
+      "R03C09",
+      "R03C13",
+      "R04C03",
+      "R07C10",
+      "R10C04",
+      "R10C13",
+      "R12C05",
+      "R13C12"
+    ]
+  },
+  "pooled_points": 94,
+  "sum_risk_weights": 1157.3050470246594,
+  "environment": {
+    "python": "3.13.9",
+    "numpy": "2.3.5",
+    "pymoo": "0.6.2",
+    "scipy": "1.16.3",
+    "machine": "arm64",
+    "processor": "arm"
+  }
+}
