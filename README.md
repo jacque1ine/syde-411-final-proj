@@ -21,6 +21,7 @@ python verify_results.py
 python make_figures.py
 python audit_solution.py
 python verify_results.py
+python make_comparison_figure.py
 ```
 
 The first verification checks the committed layouts. Running the optimizer replaces the files in `results/`. The figure script writes three PNGs and `slide_data.json` in the project root.
@@ -42,14 +43,14 @@ Each of the five runs (seeds 411-415) used 120 individuals and 200 generations, 
 
 At eight stations, the selected layout scores 2463.44 in risk-weighted distance, 12.0% above the exact optimum of 2199.17. Of 1,616 single-station relocations, 49 improved the selected layout while preserving coverage. Eight successive best moves reached 2201.40, within 0.10% of the optimum, with no further improvement at a tolerance of 1e-8. [Solution audit](results/solution_audit.json)
 
-| File | What it contains |
-| --- | --- |
-| [Experiment summary](results/experiment_summary.json) | Run settings, per-seed results, selected layout metrics and exact solver status |
-| [Pooled front](results/pooled_front.csv) | Station counts and risk-weighted distances for the 94 nondominated solutions |
-| [Selected layout](results/selected_layout_225_cells.csv) | All 225 input cells with flags identifying the eight mapped stations |
-| [Exact set-cover layout](results/exact_set_cover_layout.csv) | The seven sites selected by the minimum-coverage solve |
-| [Saved layouts](results/layouts.npz) | Binary station selections, cell IDs and objective values |
-| [Pareto plot](figures/pareto.png) and [convergence plot](figures/convergence.png) | The pooled trade-off and hypervolume by generation and seed |
+| File                                                                              | What it contains                                                                |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [Experiment summary](results/experiment_summary.json)                             | Run settings, per-seed results, selected layout metrics and exact solver status |
+| [Pooled front](results/pooled_front.csv)                                          | Station counts and risk-weighted distances for the 94 nondominated solutions    |
+| [Selected layout](results/selected_layout_225_cells.csv)                          | All 225 input cells with flags identifying the eight mapped stations            |
+| [Exact set-cover layout](results/exact_set_cover_layout.csv)                      | The seven sites selected by the minimum-coverage solve                          |
+| [Saved layouts](results/layouts.npz)                                              | Binary station selections, cell IDs and objective values                        |
+| [Pareto plot](figures/pareto.png) and [convergence plot](figures/convergence.png) | The pooled trade-off and hypervolume by generation and seed                     |
 
 ## Rebuild the input data
 
